@@ -1,0 +1,19 @@
+{% for per_work_experience in work_experience %}
+<div class="row">
+    <div class="col-xs-6">
+        <h4>{{ per_work_experience.employer_name }} <span class="label label-success">{{per_work_experience.responsibility}} </span>
+        </h4>
+    </div>
+    <div class="col-xs-6">
+        <h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true">
+                    </span> {{ per_work_experience.start_date }} - {{ per_work_experience.end_date }} </h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-8">
+        <h4>{{ per_work_experience.location_city }} -
+            {{ per_work_experience.location_country }}</h4>
+    </div>
+</div>
+<p>{{ per_work_experience.description }}</p>
+{% endfor %}

@@ -1,0 +1,72 @@
+{% extends "base2.html" %}
+{% block title %}Achievement{% endblock %}
+{% block link %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+<!--<script src="https://code.jquery.com/jquery-1.10.2.js"></script>-->
+<!--<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">-->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--<script src="{% static 'js/bootstrap.min.js' %}"></script>-->
+<!--<meta charset="utf-8">-->
+<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--<title>jQuery UI Datepicker - Default functionality</title>-->
+<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
+<!--<link rel="stylesheet" href="/resources/demos/style.css">-->
+<!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+<!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+
+{% endblock %}
+
+{% block mainbody %}
+
+<div class="container">
+    <div class="row">
+        {%if achievement%}
+
+        {% for achieve in achievement %}
+        <div id='courseList' class="col-md-12 portfolio-item" style="position: relative;padding-top: 50px;">
+            <div class="col-md-5" align="center">
+                <a href="/finalproject/course/{{achieve.course.course_id}}">
+                    <img height="250" width="250" src="{{ achieve.course.picture_url }}" alt="">
+                </a>
+            </div>
+
+            <div class="well col-md-7" align="left">
+                <Span>Comment:   </Span>{{ achieve.comment }}<br>
+                <Span>Start date:  </Span>{{ achieve.start_date }}<br>
+                <Span>End date:  </Span>{{ achieve.end_date }}<br>
+                <Span>Grade:  </Span>{{ achieve.grade }}<br>
+                <Span>Workload per week(hour):  </Span>{{ achieve.workload }}<br>
+                <Span>Rating:  </Span><br>
+
+                {% load ratings %}
+                {% ratings achieve.course %}
+
+
+            </div>
+
+        </div>
+        {% endfor %}
+        {%else%}
+        <h4>You have no course completed now.</h4>
+        {%endif%}
+
+    </div>
+</div>
+<hr>
+
+<footer class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <p>Copyright © Team 42. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}

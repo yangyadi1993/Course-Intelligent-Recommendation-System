@@ -1,0 +1,12 @@
+{% for per_honor in honor %}
+<div class="row">
+    <div class="col-xs-6">
+        <h4>{{ per_honor.issued_organization }}</h4>
+    </div>
+    <div class="col-xs-6">
+        <h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+            {{ per_honor.issued_date }}</h4>
+    </div>
+</div>
+<p>{{ per_honor.title }}</p>
+{% endfor %}

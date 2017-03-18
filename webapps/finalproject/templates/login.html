@@ -1,0 +1,39 @@
+{% extends "base1.html" %}
+{% block title %}Login{% endblock %}
+{% block link %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{% endblock %}
+
+{% block mainbody %}
+<!--
+you can substitue the span of reauth email for a input with the email and
+include the remember me checkbox
+-->
+<div class="container">
+    <div class="card card-container">
+        <img id="profile-img" class="profile-img-card" src="{% static 'image/loginProfile.jpg' %}"/>
+        <p id="profile-name" class="profile-name-card"></p>
+        <form class="form-signin" method="post" action="{% url 'login' %}">{% csrf_token %}
+            <span id="reauth-email" class="reauth-email"></span>
+            <!--<input type="email" id="inputEmail" class="form-control" placeholder="Email address">-->
+            <label>{{form.username.label_tag}}</label>
+            <div>{{form.username}}</div>
+            <!--<input type="password" id="inputPassword" class="form-control" placeholder="Password">-->
+            <label>{{form.password.label_tag}}</label>
+            <div>{{form.password}}</div>
+            {% if form.errors %}
+            <p>Incorrect user name and password.</p>
+            {% endif %}
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+        </form><!-- /form -->
+        <a href="/finalproject/user/password/reset/" class="forgot-password"> Forgot Password?</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{% url 'register' %}" class="sign-up"> New User?</a>
+        <form action="{% url 'social:begin' backend='linkedin-oauth2' %}">
+            <button type="submit" class="btn btn-block btn-linkedin"></button>
+        </form>
+    </div><!-- /card-container -->
+</div><!-- /container -->
+{% endblock %}

@@ -1,0 +1,26 @@
+{% if user_profile %}
+<div class="row">
+    <div class="col-lg-6">
+        <h4><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> : {{user_profile.phone}}</h4>
+    </div>
+    <div class="col-lg-6">
+        <h4><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> : {{user.email}}</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <h4><span class="glyphicon glyphicon-education" aria-hidden="true"></span> :
+            {{user_profile.industry}}</h4>
+    </div>
+    <div class="col-lg-6">
+        {% if locations %}
+        <h4><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> :
+            {{ locations }}</h4>
+        {% else %}
+        <h4><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> :
+            {{user_profile.location}}</h4>
+        {% endif %}
+    </div>
+</div>
+<h5>{{user_profile.summary}}</h5>
+{% endif %}

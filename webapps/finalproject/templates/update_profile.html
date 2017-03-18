@@ -1,0 +1,323 @@
+{% extends "base2.html" %}
+{% block title %}Register{% endblock %}
+{% block link %}
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+{% endblock %}
+
+{% block mainbody %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6">
+            <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+        </div>
+        <div class="col-xs-6">
+            <p class="text-right"><a href="">Upload My Resume <span class="glyphicon glyphicon-cloud-upload"
+                                                                    aria-hidden="true"></span></a></p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+
+        <div class="col-xs-7">
+            <div class="media">
+                <div class="media-body">
+                    <h2 class="media-heading">Web Developer</h2>
+                    I love study, study makes me happy!!!
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-5 well">
+            <div class="row">
+                <div class="col-lg-5">
+                    <h4><span class="glyphicon glyphicon-phone" aria-hidden="true"></span>: </h4>
+                </div>
+                <div class="col-lg-7">
+                    <h4><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>: {{user.email}}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5">
+                    <h4><span class="glyphicon glyphicon-education" aria-hidden="true"></span>: </h4>
+                </div>
+                <div class="col-lg-7">
+                    <h4><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>: </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-8 col-lg-7">
+            {% if success %}
+            {{success}}
+            {% endif %}
+            <h2>Education
+            </h2>
+            <!--<hr>-->
+            <div class="add_education_div">
+                <form action="{% url 'add_education'%}" method="post">
+                    <div class="row">
+                        {% for error in form.non_field_errors %}
+                        <p class="warning">{{ error }}</p>
+                        {% endfor %}
+                        {% for field in form.visible_fields %}
+                        <p class="warning">{{field.errors}}</p>
+                        {{field}}
+                        {% endfor %}
+                        <div class="col-xs-6"><h5>School Name: </h5><input id="school_name" name="school_name"
+                                                                           placeholder="School Name"></div>
+                        <div class="col-xs-6"><h5>Start Date: </h5><input id="start_date" name="start_date"
+                                                                          placeholder="MM/DD/YYYY"></div>
+                        <div class="col-xs-6"><h5>Degree: </h5><input id="degree" name="degree" placeholder="Degree">
+                        </div>
+                        <div class="col-xs-6"><h5>End Date: </h5><input id="graduate_date" name="graduate_date"
+                                                                        placeholder="MM/DD/YYYY"></div>
+                        <div class="col-xs-6"><h5>Major: </h5><input id="major" name="major" placeholder="Major"></div>
+                        <div class="col-xs-6"><h5>Minor: </h5><input id="minor" name="minor" placeholder="Minor"></div>
+                    </div>
+                    <br>
+                    <button id="add_education" class="btn btn-info">Add Education</button>
+                    {% csrf_token %}
+                </form>
+            </div>
+            <!--<div>-->
+            <!--<div class="row">-->
+            <!--<div class="col-xs-6"><h4>CMU</h4></div>-->
+            <!--<div class="col-xs-6">-->
+            <!--<h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Aug-->
+            <!--2015 - May 2017</h4>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<h4><span class="label label-default">Master</span></h4>-->
+            <!--<p>Over a dozen reusable components built to provide iconography, dropdowns, input groups, navigation,-->
+            <!--alerts, and much more.</p>-->
+            <!--</div>-->
+
+        </div>
+        <div class="col-sm-4 col-lg-5">
+            {% if success %}
+            {{success}}
+            {% endif %}
+            <h2>Skill Set
+            </h2>
+            <!--<hr>-->
+            <div class="add_work_experience">
+                <form action="{% url 'add_skill'%}" method="post">
+                    <div class="row">
+                        <div class="col-xs-6"><h5>Skill: </h5><input id="skill" name="skill_name"
+                                                                     placeholder="Skill"></div>
+                        <div class="col-xs-6"><h5>Proficiency: </h5><input id="proficiency" name="proficiency"
+                                                                           placeholder="Proficiency"></div>
+                    </div>
+                    <br>
+                    <button class="btn btn-info">Add Skill</button>
+                    {% csrf_token %}
+                </form>
+            </div>
+            <!--<div>-->
+            <!--<span class="label label-primary">HTML</span>-->
+            <!--<span class="label label-success">CSS</span>-->
+            <!--<span class="label label-info">JavaScript</span>-->
+            <!--<span class="label label-warning">Jquery</span>-->
+            <!--<span class="label label-danger">Django</span>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-8 col-lg-7">
+            {% if success %}
+            {{success}}
+            {% endif %}
+            <h2>Work Experience
+            </h2>
+            <!--<hr>-->
+            <div class="add_work_experience">
+                <form action="{% url 'add_work_experience'%}" method="post">
+                    <div class="row">
+
+                        <div class="col-xs-6"><h5>Organization: </h5><input id="employer_name"
+                                                                            name="employer_name"
+                                                                            placeholder="Organization Name"></div>
+                        <div class="col-xs-6"><h5>Title: </h5><input id="responsibility" name="responsibility"
+                                                                     placeholder="Title"></div>
+                        <div class="col-xs-6"><h5>City: </h5><input id="city" name="location_city"
+                                                                    placeholder="City"></div>
+                        <div class="col-xs-6"><h5>Country: </h5><input id="country" name="location_country"
+                                                                       placeholder="Country"></div>
+                        <div class="col-xs-6"><h5>Start Date: </h5><input id="work_start_date" name="start_date"
+                                                                          placeholder="MM/DD/YYYY"></div>
+                        <div class="col-xs-6"><h5>End Date: </h5><input id="work_end_date" name="end_date"
+                                                                        placeholder="MM/DD/YYYY"></div>
+                        <div class="col-xs-6"><h5>Responsibility: </h5><textarea id="work_description"
+                                                                                 name="description"
+                                                                                 placeholder="Responsibility"
+                                                                                 style="width: 492px"></textarea></div>
+                    </div>
+                    <br>
+                    <button class="btn btn-info">Add Work Experience</button>
+                    {% csrf_token %}
+                </form>
+                <hr>
+            </div>
+
+            <!--<div>-->
+            <!--<div class="row">-->
+            <!--<div class="col-xs-6">-->
+            <!--<h4>Google</h4>-->
+            <!--</div>-->
+            <!--<div class="col-xs-6">-->
+            <!--<h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Jan-->
+            <!--2016 - Dec 2016</h4>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<h4><span class="label label-success">CFO</span></h4>-->
+            <!--<p>Intern at Haisheng Ltd in Xiamen. Design and implement a logistics management system with team-->
+            <!--members.-->
+            <!--In charge of user login and register module and order module. (User interface design, database-->
+            <!--design-->
+            <!--and coding)</p>-->
+            <!--</div>-->
+        </div>
+        <div class="col-sm-4 col-lg-5">
+            {% if success %}
+            {{success}}
+            {% endif %}
+            <h2>Honor
+            </h2>
+            <!--<hr>-->
+            <div class="add_honor">
+                <form action="{% url 'add_honor'%}" method="post">
+                    <div class="row">
+                        <div class="col-xs-6"><h5>Title: </h5><input id="honor_title" name="title"
+                                                                     placeholder="Title"></div>
+                        <div class="col-xs-6"><h5>Issued Date: </h5><input id="issued_date" name="issued_date"
+                                                                           placeholder="Issued Date"></div>
+                        <div class="col-xs-6"><h5>Issued Organization: </h5><input id="issued_organization"
+                                                                                   name="issued_organization"
+                                                                                   placeholder="Issued Organization"
+                                                                                   style="width: 394px"></div>
+                    </div>
+                    <br>
+                    <button class="btn btn-info">Add Honor</button>
+                    {% csrf_token %}
+                </form>
+            </div>
+            <!--<div>-->
+            <!--<div class="row">-->
+            <!--<div class="col-xs-4">-->
+            <!--<h4>CMU</h4>-->
+            <!--</div>-->
+            <!--<div class="col-xs-8">-->
+            <!--<h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Jan-->
+            <!--2016</h4>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<p>First class honor</p>-->
+            <!--</div>-->
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-8 col-lg-7">
+            {% if success %}
+            {{success}}
+            {% endif %}
+            <h2>Projects
+            </h2>
+            <!--<hr>-->
+            <div class="add_project">
+                <form action="{% url 'add_project'%}" method="post">
+                    <div class="row">
+                        <div class="col-xs-6"><h5>Project Name: </h5><input id="project_name"
+                                                                            name="project_name"
+                                                                            placeholder="Project Name"></div>
+                        <div class="col-xs-6"><h5>Organization: </h5><input id="project_organization_name"
+                                                                            name="organization_name"
+                                                                            placeholder="Organization Name"></div>
+                        <div class="col-xs-6"><h5>Start Date: </h5><input id="project_start_date"
+                                                                          name="start_date"
+                                                                          placeholder="MM/DD/YYYY"></div>
+                        <div class="col-xs-6"><h5>End Date: </h5><input id="project_end_date" name="end_date"
+                                                                        placeholder="MM/DD/YYYY"></div>
+                        <div class="col-xs-8"><h5>Responsibility: </h5><input id="project_responsibility"
+                                                                              name="responsibility"
+                                                                              placeholder="Responsibility"></div>
+                        <div class="col-xs-6"><h5>Description: </h5><textarea id="description" name="description"
+                                                                              placeholder="Description"
+                                                                              style="width: 492px"></textarea></div>
+                    </div>
+                    <br>
+                    <button class="btn btn-info">Add Project</button>
+                    {% csrf_token %}
+                </form>
+            </div>
+
+            <!--<div>-->
+            <!--<div class="row">-->
+            <!--<div class="col-xs-6">-->
+            <!--<h4>Grumblr</h4>-->
+            <!--</div>-->
+            <!--<div class="col-xs-6">-->
+            <!--<h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Jan-->
+            <!--2016 - Dec 2016</h4>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<p>We developed a full-stack web application similar to Apple appstore using the following technologies:-->
+            <!--Java using Spring-MVC framework, MongoDB, Tomcat 8.0, JQuery, JavaScript and so on.</p>-->
+            <!--</div>-->
+        </div>
+
+        <div class="col-sm-4 col-lg-5">
+            {% if success %}
+            {{success}}
+            {% endif %}
+            <h2>Language
+            </h2>
+            <!--<hr>-->
+            <div class="add_language">
+                <form action="{% url 'add_language'%}" method="post">
+                    <div class="row">
+                        <div class="col-xs-6"><h5>Language: </h5><input id="language" name="language_name"
+                                                                        placeholder="Language"></div>
+                        <div class="col-xs-6"><h5>Proficiency: </h5><input id="language_proficiency"
+                                                                           name="proficiency"
+                                                                           placeholder="Proficiency"></div>
+                    </div>
+                    <br>
+                    <button class="btn btn-info">Add Language</button>
+                    {% csrf_token %}
+                </form>
+            </div>
+            <!--<div>-->
+            <!--<span class="label label-primary">English</span>-->
+
+            <!--<span class="label label-success">Chinese</span>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <hr>
+    <footer class="text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>Copyright © Team 42. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.js"></script>
+    </body>{% endblock %}
+</div>

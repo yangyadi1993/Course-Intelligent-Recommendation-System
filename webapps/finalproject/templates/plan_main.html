@@ -1,0 +1,230 @@
+<h3>
+    Sunday
+</h3>
+<hr>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>
+            Time
+        </th>
+        <th>
+            Course
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for plan in sunday_plans %}
+    <tr>
+
+        <td>
+            {{ plan.plan_from_hour }}:{{ plan.plan_from_minute }} {{ plan.plan_from_ampm }} - {{ plan.plan_to_hour }}:
+            {{ plan.plan_to_minute }} {{ plan.plan_to_ampm }}
+        </td>
+        <td>
+            {{ plan.plan_course_name }}
+        </td>
+
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<h3>
+    Monday
+</h3>
+<hr>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>
+            Time
+        </th>
+        <th>
+            Course
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for plan in monday_plans %}
+
+    <tr>
+        <td>
+            {{ plan.plan_from_hour }}:{{ plan.plan_from_minute }} {{ plan.plan_from_ampm }} - {{ plan.plan_to_hour }}:
+            {{ plan.plan_to_minute }} {{ plan.plan_to_ampm }}
+        </td>
+        <td>
+            {{ plan.plan_course_name }}
+        </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+<h3>
+    Tuesday
+</h3>
+<hr>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>
+            Time
+        </th>
+        <th>
+            Course
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for plan in tuesday_plans %}
+
+    <tr>
+        <td>
+            {{ plan.plan_from_hour }}:{{ plan.plan_from_minute }} {{ plan.plan_from_ampm }} - {{ plan.plan_to_hour }}:
+            {{ plan.plan_to_minute }} {{ plan.plan_to_ampm }}
+        </td>
+        <td>
+            {{ plan.plan_course_name }}
+        </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+<h3>
+    Wednesday
+</h3>
+<hr>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>
+            Time
+        </th>
+        <th>
+            Course
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for plan in wednesday_plans %}
+
+    <tr>
+        <td>
+            {{ plan.plan_from_hour }}:{{ plan.plan_from_minute }} {{ plan.plan_from_ampm }} - {{ plan.plan_to_hour }}:
+            {{ plan.plan_to_minute }} {{ plan.plan_to_ampm }}
+        </td>
+        <td>
+            {{ plan.plan_course_name }}
+        </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+<h3>
+    Thursday
+</h3>
+<hr>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>
+            Time
+        </th>
+        <th>
+            Course
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for plan in thursday_plans %}
+
+    <tr>
+
+        <td>
+            {{ plan.plan_from_hour }}:{{ plan.plan_from_minute }} {{ plan.plan_from_ampm }} - {{ plan.plan_to_hour }}:
+            {{ plan.plan_to_minute }} {{ plan.plan_to_ampm }}
+        </td>
+        <td>
+            {{ plan.plan_course_name }}
+        </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+<h3>
+    Friday
+</h3>
+<hr>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>
+            Time
+        </th>
+        <th>
+            Course
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for plan in friday_plans %}
+
+    <tr>
+        <td>
+            {{ plan.plan_from_hour }}:{{ plan.plan_from_minute }} {{ plan.plan_from_ampm }} - {{ plan.plan_to_hour }}:
+            {{ plan.plan_to_minute }} {{ plan.plan_to_ampm }}
+        </td>
+        <td>
+            {{ plan.plan_course_name }}
+        </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+<h3>
+    Saturday
+</h3>
+<hr>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>
+            Time
+        </th>
+        <th>
+            Course
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for plan in saturday_plans %}
+
+    <tr>
+        <td>
+            {{ plan.plan_from_hour }}:{{ plan.plan_from_minute }} {{ plan.plan_from_ampm }} - {{ plan.plan_to_hour }}:
+            {{ plan.plan_to_minute }} {{ plan.plan_to_ampm }}
+        </td>
+        <td>
+            {{ plan.plan_course_name }}
+        </td>
+    </tr>
+    {% endfor %}
+
+    </tbody>
+</table>

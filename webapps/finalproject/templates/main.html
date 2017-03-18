@@ -1,0 +1,127 @@
+{% extends "base2.html" %}
+{% block title %}Main{% endblock %}
+{% block link %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
+
+{% block mainbody %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div id="carousel1" class="carousel slide">
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel1" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel1" data-slide-to="1" class=""></li>
+                    <li data-target="#carousel1" data-slide-to="2" class=""></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="item active"><a href="{% url 'plan_page' %}">
+                        <img class="img-responsive" src="{% static 'image/Data.jpg' %}" alt="thumb"></a>
+                        <div class="carousel-caption">
+                            <h3>Welcome! Create your plan now!</h3>
+                        </div>
+                    </div>
+                    <div class="item"><a href="{% url 'collection' %}"><img class="img-responsive" src="{% static 'image/press.jpg' %}" alt="thumb">
+                        </a>
+                        <div class="carousel-caption">
+                            <h3>Welcome! Create your collection now!</h3>
+                        </div>
+                    </div>
+                    <div class="item"><a href="{% url 'achievement' %}">
+                        <img class="img-responsive" src="{% static 'image/time-to-fly.jpg' %}"
+                                           alt="thumb"></a>
+                        <div class="carousel-caption">
+                            <h3>Welcome! Create your achievement now!</h3>
+                        </div>
+                    </div>
+                </div>
+                <a class="left carousel-control" href="#carousel1" data-slide="prev"><span class="icon-prev"></span></a>
+                <a class="right carousel-control" href="#carousel1" data-slide="next"><span
+                        class="icon-next"></span></a></div>
+        </div>
+    </div>
+    <hr>
+</div>
+
+
+<div class="container">
+    <h3>Recommended Courses
+    </h3>
+    <hr>
+    <!--<a href="{% url 'sort_by_rating' %}">Sort by rating</a>-->
+    <div class="row">
+
+        {% for course in courses%}
+        <div id='courseList' class="col-md-4 portfolio-item" align="center"
+             style="position: relative;padding-top: 30px; max-height: 440px">
+            <a href="/finalproject/course/{{course.course_id}}">
+                <img height="250" width="250" src="{{ course.picture_url }}" alt="">
+                <br>
+            </a>
+            <h6>{{ course.course_name }}</h6>
+            {% load ratings %}
+            {% ratings course %}
+
+            <p><a href="/finalproject/addcollection/{{course.course_id}}" class="btn btn-primary" role="button">Add to
+                List</a></p>
+        </div>
+        {% endfor %}
+    </div>
+    <br>
+    <hr>
+</div>
+
+<div class="container">
+    <h3>Recommended Users
+    </h3>
+    <hr>
+    <div class="row">
+        {% for recommend_user in recommend_users %}
+        <div id='user_list' class="col-md-4 portfolio-item" align="center"
+             style="position: relative;padding-top: 30px; max-height: 440px">
+            <a href="/finalproject/other_user_profile/{{recommend_user.id}}">
+                <img class="media-object img-rounded" width="150" height="150"
+                     src="/finalproject/get_photo/{{recommend_user.id}}">
+                <br>
+            </a>
+            <h6>{{ recommend_user.first_name }} {{ recommend_user.last_name }}</h6>
+        </div>
+        {% endfor %}
+    </div>
+    <br>
+    <hr>
+</div>
+
+</div>
+<footer class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <p>Copyright © MyWebsite. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{% static 'js/bootstrap.js' %}"></script>
+
+
+{% endblock %}

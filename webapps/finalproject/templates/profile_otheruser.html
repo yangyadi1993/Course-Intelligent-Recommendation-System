@@ -1,0 +1,277 @@
+{% extends "base2.html" %}
+{% block title %}Register{% endblock %}
+{% block link %}
+{% load static %}
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<!--<script src="{% static 'js/profile.js' %}"></script>-->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+{% endblock %}
+
+
+{% block mainbody %}
+
+<div class="error">
+    {% for error in errors %}
+    <p class="warning">{{ error }}</p>
+    {% endfor %}
+    {% for field in form.visible_fields %}
+    <p class="warning">{{field.errors}}</p>
+    {{field}}
+    {% endfor %}
+</div>
+
+<div class="container">
+    <hr>
+    <div class="row">
+        <div class="col-xs-2">
+            <img class="media-object img-rounded" width="100" height="100"
+                 src="/finalproject/get_photo/{{other_user_id}}">
+        </div>
+        <div class="col-xs-6">
+            <h1>{{other_user_first_name}} {{other_user_last_name}}</h1>
+        </div>
+        <div class="col-xs-4">
+            <p class="text-right"><a href="">Download my Resume <span class="glyphicon glyphicon-download-alt"
+                                                                      aria-hidden="true"></span></a></p>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="media">
+                <div class="media-body">
+                    <h2 class="media-heading">Info
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 well" id="profile_info" style="display:block;">
+            {% if user_profile %}
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4><span class="glyphicon glyphicon-phone" aria-hidden="true"></span> : {{user_profile.phone}}</h4>
+                </div>
+                <div class="col-lg-6">
+                    <h4><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> : {{other_user_email}}
+                    </h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <h4><span class="glyphicon glyphicon-education" aria-hidden="true"></span> :
+                        {{user_profile.industry}}</h4>
+                </div>
+                <div class="col-lg-6">
+                    {% if locations %}
+                    <h4><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> :
+                        {{ locations }}</h4>
+                    {% else %}
+                    <h4><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> :
+                        {{user_profile.location}}</h4>
+                    {% endif %}
+                </div>
+            </div>
+            <h5>{{user_profile.summary}}</h5>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-8 col-lg-6">
+            <h3>Education
+            </h3>
+
+            <hr>
+            <div id="education_div">
+                {% for per_education in education %}
+                <div class="row">
+                    <div class="col-xs-6"><h4>{{ per_education.school_name }}</h4></div>
+                    <div class="col-xs-6">
+                        <h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true">
+                    </span> {{per_education.start_date }} - {{ per_education.graduate_date }} </h4>
+                    </div>
+                </div>
+                <h4><span class="label label-default">{{ per_education.degree }}</span> -
+                    <span class="label label-info">{{ per_education.major }}</span></h4>
+
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-sm-4 col-lg-6">
+            <h3>Skill Set
+            </h3>
+
+            <hr>
+            <div id="skill_div">
+                {% for skill in skill_set %}
+                <h3><span class="label label-primary">{{ skill.skill_name }}</span> -
+                    <span class="label label-success">{{ skill.proficiency }}</span>
+                </h3>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-8 col-lg-6">
+            <h3>Work Experience
+            </h3>
+
+            <hr>
+            <div id="work_experience_div">
+                {% for per_work_experience in work_experience %}
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h4>{{ per_work_experience.employer_name }} <span class="label label-success">{{per_work_experience.responsibility}} </span>
+                        </h4>
+                    </div>
+                    <div class="col-xs-6">
+                        <h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true">
+                    </span> {{ per_work_experience.start_date }} - {{ per_work_experience.end_date }} </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <h4>{{ per_work_experience.location_city }} -
+                            {{ per_work_experience.location_country }}</h4>
+                    </div>
+                </div>
+                <p>{{ per_work_experience.description }}</p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-sm-4 col-lg-6">
+            <h3>Honor
+            </h3>
+
+            <hr>
+            <div id="honor_div">
+                {% for per_honor in honor %}
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h4>{{ per_honor.issued_organization }}</h4>
+                    </div>
+                    <div class="col-xs-6">
+                        <h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                            {{ per_honor.issued_date }}</h4>
+                    </div>
+                </div>
+                <p>{{ per_honor.title }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-8 col-lg-6">
+            <h3>Projects
+            </h3>
+
+            <hr>
+            <div id="project_div">
+                {% for per_project in academic_project %}
+                <div class="row">
+                    <div class="col-xs-6">
+                        <h4>{{ per_project.project_name }} <span
+                                class="label label-success">{{per_project.responsibility}} </span></h4>
+                    </div>
+                    <div class="col-xs-6">
+                        <h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                            {{ per_project.start_date }} - {{ per_project.end_date }}
+                        </h4>
+                    </div>
+                </div>
+                <p>{{ per_project.description }}</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-lg-6">
+            <h3>Language
+            </h3>
+
+            <hr>
+            <div id="language_div">
+                {% for language in language_set %}
+                <h3><span class="label label-primary">{{ language.language_name }}</span> -
+                    <span class="label label-success">{{ language.proficiency }}</span>
+                </h3>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-12 col-lg-12">
+            <h3>Collections
+            </h3>
+
+            <hr>
+            <div id="collection_div">
+                <div class="row">
+                    {% for collection in collections %}
+                    <div class="col-md-4" align="center">
+                        <a href="/finalproject/course/{{collection.course_id}}">
+                            <img src="{{collection.picture_url}}" height="250" width="250">
+                        </a>
+                        <br>
+                        <h5>{{ collection.course_name }}</h5>
+                    </div>
+                    <!--<div class="col-md-4">-->
+                    <!--</div>-->
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-12 col-lg-12">
+            <h3>Achievements
+            </h3>
+
+            <hr>
+            <div id="achievement_div">
+                <div class="row">
+                    {% for achievement in achievements %}
+                    <div class="col-md-4" align="center">
+                        <a href="/finalproject/course/{{achievement.course.course_id}}">
+                            <img height="250" width="250" src="{{ achievement.course.picture_url }}" alt="">
+                        </a>
+                        <br>
+                        <h5>{{ achievement.course.course_name }}</h5>
+                    </div>
+
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <hr>
+    <footer class="text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>Copyright © Team 42. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% endblock %}
+</div>

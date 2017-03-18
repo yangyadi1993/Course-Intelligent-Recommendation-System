@@ -1,0 +1,119 @@
+{% extends "base2.html" %}
+
+{% block title %}Achievement{% endblock %}
+{% block link %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+<!--<script src="https://code.jquery.com/jquery-1.10.2.js"></script>-->
+<!--<script src="https://code.jquery.com/jquery-1.10.2.js"></script>-->
+<!--<link rel="stylesheet" href="/static/css/bootstrap.css">-->
+<!--<script src="/static/css/star.css"></script>-->
+<!--<script src="/static/js/star.js" type="text/javascript"></script>-->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--<script src="{% static 'js/bootstrap.js' %}" type="text/javascript"></script>-->
+<!--<script src="{% static 'js/bootstrap.min.js' %}"></script>-->
+
+<!--<meta charset="utf-8">-->
+<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--<title>jQuery UI Datepicker - Default functionality</title>-->
+<!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
+<!--<link rel="stylesheet" href="/resources/demos/style.css">-->
+<!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+<!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+
+<script>
+    $(function () {
+        $("#datepicker").datepicker();
+    });
+    $(function () {
+        $("#datepick").datepicker();
+    });
+</script>
+{% endblock %}
+
+{% block mainbody %}
+
+<!--<div class="col-sm-6 register-intro">-->
+<!--<h1 class="alt-h1 text-white text-shadow-dark lh-condensed mb-3">How people know what their should learn?</h1>-->
+<!--<p class="alt-lead text-white text-shadow-dark">"We give you advice for which course to take based on your linkedin-->
+<!--information or any of your experience"</p>-->
+<!--</div>-->
+<div class="col-md-4"></div>
+<div class="col-sm-4 container">
+    <div class="card card-container">
+        <!--<img id="profile-img" class="profile-img-card" src="../static/image/loginProfile.jpg"/>-->
+        <p id="profile-name" class="profile-name-card"></p>
+
+        <form class="form-register" method="post" action="{% url 'add_achievement' course.course_id%}">{% csrf_token %}
+            <span id="reauth-email" class="reauth-email"></span>
+            {% for error in form.non_field_errors %}
+            <p class="warning">{{ error }}</p>
+            {% endfor %}
+
+            <h5>Comment: </h5>
+            <!--{{ form.comment.label_tag }}-->
+            {{ form.comment }}
+            <h5>Grade: </h5>
+            <!--{{ form.grade.label_tag }}-->
+            {{ form.grade }}
+            <h5>Start date: </h5>
+            <!--{{ form.start_date.label_tag }}-->
+            {{ form.start_date }}
+            <h5>End date: </h5>
+            <!--{{ form.end_date.label_tag }}-->
+            <p class="warning">{{form.end_date.errors}}</p>
+            <p class="warning">{{form.errors}}</p>
+
+            {{ form.end_date }}
+            <h5>Workload: </h5>
+            <p>How many hours did you spend on this course per week?</p>
+            <!--{{ form.workload.label_tag }}-->
+            {{ form.workload }} <br>
+
+            <!--{% block rating_detail %}-->
+            <h5>Rating:</h5>
+
+            {% load ratings %}
+            {% ratings course %}
+            <!--{% endblock %}-->
+
+            <!--{% for field in form.hidden_fields %}-->
+            <!--{{field}}-->
+            <!--{% endfor %}-->
+
+            <!--{% for field in form.visible_fields %}-->
+
+            <!--<div class="container">-->
+            <!--<div class="row lead">-->
+            <!--<div id="hearts" class="starrr"></div>-->
+            <!--You gave a rating of <span id="count">0</span> star(s)-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<p>Date: <input type="text" id="datepicker"></p>-->
+            <!--{{field}}-->
+            <!--{% endfor %}-->
+
+            <button class="btn btn-lg btn-primary btn-block register" type="submit">Save</button>
+        </form><!-- /form -->
+
+    </div><!-- /card-container -->
+</div><!-- /container -->
+<footer class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <p>Copyright © Team 42. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+{% endblock %}

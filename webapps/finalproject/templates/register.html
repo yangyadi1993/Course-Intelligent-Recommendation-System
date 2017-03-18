@@ -1,0 +1,42 @@
+{% extends "base1.html" %}
+{% block title %}Register{% endblock %}
+{% block link %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{% endblock %}
+
+{% block mainbody %}
+<!--
+you can substitue the span of reauth email for a input with the email and
+include the remember me checkbox
+-->
+<div class="col-sm-6 register-intro">
+    <h1 class="alt-h1 text-white text-shadow-dark lh-condensed mb-3">How people know what their should learn?</h1>
+    <p class="alt-lead text-white text-shadow-dark">"We give you advice for which course to take based on your linkedin
+        information or any of your experience"</p>
+</div>
+<div class="col-sm-5 container">
+    <div class="card card-container">
+        <img id="profile-img" class="profile-img-card" src="{% static 'image/loginProfile.jpg' %}"/>
+        <p id="profile-name" class="profile-name-card"></p>
+        {% for error in form.non_field_errors %}
+        <p class="warning">{{ error }}</p>
+        {% endfor %}
+        <form class="form-register" method="post" action="{% url 'register' %}">{% csrf_token %}
+            <span id="reauth-email" class="reauth-email"></span>
+
+            {% for field in form.visible_fields %}
+            <p class="warning">{{field.errors}}</p>
+            {{field}}
+            {% endfor %}
+            {% for field in form.hidden_fields %}
+            {{field}}
+            {% endfor %}
+            <button class="btn btn-lg btn-primary btn-block register" type="submit">Register</button>
+        </form><!-- /form -->
+        <a href="{% url 'linkedin_login' %}" class="login-in"> Log in? </a>
+
+    </div><!-- /card-container -->
+</div><!-- /container -->
+{% endblock %}

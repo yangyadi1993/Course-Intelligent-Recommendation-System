@@ -1,0 +1,14 @@
+{% for per_project in academic_project %}
+<div class="row">
+    <div class="col-xs-6">
+        <h4>{{ per_project.project_name }} <span
+                class="label label-success">{{per_project.responsibility}} </span></h4>
+    </div>
+    <div class="col-xs-6">
+        <h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+            {{ per_project.start_date }} - {{ per_project.end_date }}
+        </h4>
+    </div>
+</div>
+<p>{{ per_project.description }}</p>
+{% endfor %}

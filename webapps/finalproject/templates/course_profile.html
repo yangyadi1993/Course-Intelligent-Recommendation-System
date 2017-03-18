@@ -1,0 +1,98 @@
+{% extends "base2.html" %}
+{% block title %}Course profile{% endblock %}
+{% block link %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+<script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<!--<link rel="stylesheet" href="/static/css/bootstrap.css">-->
+<!--<script src="{% static 'css/star.css' %}"></script>-->
+<!--<script src="{% static 'js/star.js' %}"></script>-->
+<script src="{% static 'js/course_profile.js' %}"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!--<script src="{% static 'js/bootstrap.min.js' %}"></script>-->
+
+<!--<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
+<!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
+<!--<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>-->
+<!--<script src="{% static 'js/bootstrap.js' %}"></script>-->
+<!--<script src="{% static 'js/bootstrap.min.js' %}"></script>-->
+<!--<script src="{% static 'js/course_profile.js' %}"></script>-->
+{% load static %}
+<script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+{% endblock %}
+
+{% block mainbody %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="thumbnail">
+                <img class="img-responsive" src="{{course.picture_url}}">
+                <div class="caption-full">
+                    <h3>{{course.course_name}}
+                    </h3>
+                    <p>Workload: {{course.course_load}}</p>
+                    <div class="text-left">
+                        {% if finished %}
+                        <a class="btn btn-danger" href="javascript:void(0)">Finished</a>
+                        {% else %}
+                        <a class="btn btn-success" href="{% url 'add_achievement' course.course_id %}">Not finished</a>
+                        {% endif %}
+                        <br>
+                        {% load ratings %}
+                        <hr>
+                        {% ratings course %}
+                        <br>
+                    </div>
+                    <hr>
+                    <p>Description: {{course.course_description}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="well col-md-4">
+            <label>Write Your Comment</label>
+            <div class="text-right">
+                <form role="form" method="post" id="create-comment-form" class="{{course.course_id}}">
+                    <textarea id="commentArea" class="form-control" name="commentArea"></textarea>
+                    <br>
+                    <button type="submit" class="btn btn-success" id="create-comment-btn">Submit</button>
+                    {% csrf_token %}
+                </form>
+            </div>
+            <hr>
+            <div class="col-md-12" id="commentlist">
+                <hr>
+                {% for comment in comments%}
+                <div id="commentRow" class="col-md-12">
+                    <div>
+                        <span class="pull-right">{{comment.time}}</span>
+                        <a href="/finalproject/other_user_profile/{{comment.user.id}}">
+                            <p>{{comment.user.first_name}} {{comment.user.last_name}}</p>
+                        </a>
+                        <p>{{comment.text}}</p>
+                    </div>
+                    <hr>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->
+
+<footer class="text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <p>Copyright © MyWebsite. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}

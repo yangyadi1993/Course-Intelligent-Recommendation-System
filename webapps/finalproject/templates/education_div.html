@@ -1,0 +1,12 @@
+{% for per_education in education %}
+<div class="row">
+    <div class="col-xs-6"><h4>{{ per_education.school_name }}</h4></div>
+    <div class="col-xs-6">
+        <h4 class="text-right"><span class="glyphicon glyphicon-calendar" aria-hidden="true">
+                    </span> {{per_education.start_date }} - {{ per_education.graduate_date }} </h4>
+    </div>
+</div>
+<h4><span class="label label-default">{{ per_education.degree }}</span> -
+    <span class="label label-info">{{ per_education.major }}</span></h4>
+
+{% endfor %}

@@ -1,0 +1,353 @@
+{% extends "base2.html" %}
+{% block title %}Profile{% endblock %}
+{% block link %}
+{% load static %}
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<script src="{% static 'js/profile.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+
+{% endblock %}
+
+
+{% block mainbody %}
+
+<div class="error">
+    {% for error in errors %}
+    <p class="warning">{{ error }}</p>
+    {% endfor %}
+    {% for field in form.visible_fields %}
+    <p class="warning">{{field.errors}}</p>
+    {{field}}
+    {% endfor %}
+</div>
+
+<div class="container">
+    <hr>
+    <div class="row">
+        <div class="col-xs-2">
+            {% if picture_url %}
+            <img class="media-object img-rounded" width="100" height="100" src="{{ picture_url }}">
+            {% else %}
+            <img class="media-object img-rounded" width="100" height="100" src="{% url 'get_photo' user.id %}">
+            {% endif %}
+
+        </div>
+        <div class="col-xs-6">
+            <h1>{{user.first_name}} {{user.last_name}}</h1>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-xs-6">
+            <div class="media">
+                <div class="media-body">
+                    <h2 class="media-heading">Info
+                        {% if not picture_url %}
+                        <button id="update_info_btn" class="btn btn-info">Update Info</button>
+                        {% endif %}
+                    </h2>
+                    <div>
+                        <button id="upload_resume" class="btn btn-info">Upload my resume</button>
+                    </div>
+                    <hr>
+                    <div id="page_upload_resume" style="display:none">
+                        <br>
+                        <form enctype="multipart/form-data" action="{% url 'page_upload_resume' %}" method="post">
+                            <p>Please choose a pdf or doc format resume.</p>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <input class="btn btn-default img-responsive" type="file"
+                                               accept="file/pdf" name="resume_file" id="id_resume">
+                                    </td>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>
+                                        <input class="btn btn-success" type="submit" value="Upload resume">
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="col-xs-6"><h5>{{ form }}</h5></div>
+                            <br>
+                            {% csrf_token %}
+
+                        </form>
+                        <button id="upload_resume_cancel" class="btn btn-danger">Cancel</button>
+                    </div>
+                </div>
+                <div id="update_info_div" style="display:none">
+                    <br>
+                    <form action="{% url 'upload_avatar' %}" method="post" enctype="multipart/form-data">
+                        <table>
+                            <tr>
+                                <td>
+                                    <input class="btn btn-default img-responsive" type="file"
+                                           accept="image/png, image/jpeg, image/gif" name="image" id="id_image">
+                                </td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                                <td>
+                                    <input class="btn btn-success" type="submit" value="Upload New Avatar">
+                                </td>
+                            </tr>
+                        </table>
+                        {% csrf_token %}
+                    </form>
+                    <div id="update_info_form">
+                        <div class="row">
+                            {% for error in form.non_field_errors %}
+                            <p class="warning">{{ error }}</p>
+                            {% endfor %}
+                            {% for field in form.visible_fields %}
+                            <p class="warning">{{field.errors}}</p>
+                            {{field}}
+                            {% endfor %}
+                            <div class="col-xs-6"><h5>Phone: </h5><input id="phone" name="phone"
+                                                                         placeholder="XXXXXXXXXX"></div>
+                            <div class="col-xs-6"><h5>Email: </h5><input id="email" name="email"
+                                                                         placeholder="email@domain.com"></div>
+                            <div class="col-xs-6"><h5>Location: </h5><input id="location" name="location"
+                                                                            placeholder="Location"></div>
+                            <div class="col-xs-6"><h5>Industry: </h5><input id="industry" name="industry"
+                                                                            placeholder="Industry"></div>
+                            <div class="col-xs-6"><h5>Summary: </h5><textarea id="summary" name="summary"
+                                                                              placeholder="Talk about your self."></textarea>
+                            </div>
+                        </div>
+                        <br>
+                        <button id="update_info" class="btn btn-info">Submit</button>
+                        {% csrf_token %}
+                        <button id="update_info_cancel" class="btn btn-danger" type="reset">Cancel</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-xs-6 well" id="profile_info" style="display:none;">
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-8 col-lg-6">
+            <h3>Education
+                <button class="btn btn-info" id="education_btn">Add Education</button>
+            </h3>
+
+            <div id="add_education_div" style="display:none">
+                <div id="add_education_form">
+                    <div class="row">
+                        {% for error in form.non_field_errors %}
+                        <p class="warning">{{ error }}</p>
+                        {% endfor %}
+                        {% for field in form.visible_fields %}
+                        <p class="warning">{{field.errors}}</p>
+                        {{field}}
+                        {% endfor %}
+                        <div class="col-xs-6"><h5>School Name: </h5><input id="school_name" name="school_name"
+                                                                           placeholder="School Name"></div>
+                        <div class="col-xs-6"><h5>Start Date: </h5><input id="start_date" name="start_date"
+                                                                          placeholder="MM/DD/YYYY"></div>
+                        <div class="col-xs-6"><h5>Degree: </h5><input id="degree" name="degree" placeholder="Degree">
+                        </div>
+                        <div class="col-xs-6"><h5>End Date: </h5><input id="graduate_date" name="graduate_date"
+                                                                        placeholder="MM/DD/YYYY"></div>
+                        <div class="col-xs-6"><h5>Major: </h5><input id="major" name="major" placeholder="Major"></div>
+                        <div class="col-xs-6"><h5>Minor: </h5><input id="minor" name="minor" placeholder="Minor"></div>
+                    </div>
+                    <br>
+                    <button id="add_education" class="btn btn-info">Submit</button>
+                    {% csrf_token %}
+                    <button id="add_education_cancel" class="btn btn-danger" type="reset">Cancel</button>
+                </div>
+            </div>
+
+            <hr>
+            <div id="education_div" style="display: none">
+            </div>
+        </div>
+        <div class="col-sm-4 col-lg-6">
+            <h3>Skill Set
+                <button class="btn btn-info" id="skill_btn">Add Skill</button>
+            </h3>
+
+            <div id="add_skill_div" style="display:none">
+                <div id="add_skill_form">
+                    <div class="row">
+                        <div class="col-xs-6"><h5>Skill: </h5><input id="skill" name="skill_name"
+                                                                     placeholder="Skill"></div>
+                        <div class="col-xs-6"><h5>Proficiency: </h5><input id="proficiency" name="proficiency"
+                                                                           placeholder="Proficiency"></div>
+                    </div>
+                    <br>
+                    <button id="add_skill" class="btn btn-info">Submit</button>
+                    {% csrf_token %}
+                    <button id="add_skill_cancel" class="btn btn-danger" type="reset">Cancel</button>
+
+                </div>
+            </div>
+            <hr>
+            <div id="skill_div">
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-8 col-lg-6">
+            <h3>Work Experience
+                <button class="btn btn-info" id="work_btn">Add Work Experience</button>
+            </h3>
+
+            <div id="add_work_experience_div" style="display:none">
+                <div id="add_work_experience_form">
+                    <div class="row">
+
+                        <div class="col-xs-6"><h5>Organization: </h5><input id="organization_name"
+                                                                            name="employer_name"
+                                                                            placeholder="Organization Name"></div>
+                        <div class="col-xs-6"><h5>Responsibility: </h5><input id="responsibility" name="responsibility"
+                                                                              placeholder="Title"></div>
+                        <div class="col-xs-6"><h5>City: </h5><input id="city" name="location_city"
+                                                                    placeholder="City"></div>
+                        <div class="col-xs-6"><h5>Country: </h5><input id="country" name="location_country"
+                                                                       placeholder="Country"></div>
+                        <div class="col-xs-6"><h5>Start Date: </h5><input id="work_start_date" name="start_date"
+                                                                          placeholder="MM/DD/YYYY"></div>
+                        <div class="col-xs-6"><h5>End Date: </h5><input id="work_end_date" name="end_date"
+                                                                        placeholder="MM/DD/YYYY"></div>
+                        <div class="col-xs-6"><h5>Description: </h5><textarea id="work_description"
+                                                                              name="description"
+                                                                              placeholder="Responsibility"
+                                                                              style="width: 492px"></textarea></div>
+                    </div>
+                    <br>
+                    <button id="add_work_experience" class="btn btn-info">Submit</button>
+                    {% csrf_token %}
+                    <button id="add_work_cancel" class="btn btn-danger" type="reset">Cancel</button>
+                </div>
+            </div>
+
+            <hr>
+            <div id="work_experience_div">
+            </div>
+        </div>
+        <div class="col-sm-4 col-lg-6">
+            <h3>Honor
+                <button class="btn btn-info" id="honor_btn">Add Honor</button>
+            </h3>
+
+            <div id="add_honor_div" style="display:none">
+                <div id="add_honor_form">
+                    <div class="row">
+                        <div class="col-xs-6"><h5>Title: </h5><input id="honor_title" name="title"
+                                                                     placeholder="Title"></div>
+                        <div class="col-xs-6"><h5>Issued Date: </h5><input id="issued_date" name="issued_date"
+                                                                           placeholder="Issued Date"></div>
+                        <div class="col-xs-6"><h5>Issued Organization: </h5><input id="issued_organization"
+                                                                                   name="issued_organization"
+                                                                                   placeholder="Issued Organization"
+                                                                                   style="width: 394px"></div>
+                    </div>
+                    <br>
+                    <button id="add_honor" class="btn btn-info">Submit</button>
+                    {% csrf_token %}
+                    <button id="add_honor_cancel" class="btn btn-danger" type="reset">Cancel</button>
+                </div>
+            </div>
+
+            <hr>
+            <div id="honor_div">
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-8 col-lg-6">
+            <h3>Projects
+                <button class="btn btn-info" id="project_btn">Add Project</button>
+            </h3>
+
+            <div id="add_project_div" style="display:none">
+                <div id="add_project_form">
+                    <div class="row">
+                        <div class="col-xs-6"><h5>Project Name: </h5><input id="project_name"
+                                                                            name="project_name"
+                                                                            placeholder="Project Name"></div>
+                        <div class="col-xs-6"><h5>Organization: </h5><input id="project_organization_name"
+                                                                            name="organization_name"
+                                                                            placeholder="Organization Name"></div>
+                        <div class="col-xs-6"><h5>Start Date: </h5><input id="project_start_date"
+                                                                          name="start_date"
+                                                                          placeholder="MM/DD/YYYY"></div>
+                        <div class="col-xs-6"><h5>End Date: </h5><input id="project_end_date" name="end_date"
+                                                                        placeholder="MM/DD/YYYY"></div>
+                        <div class="col-xs-8"><h5>Responsibility: </h5><input id="project_responsibility"
+                                                                              name="responsibility"
+                                                                              placeholder="Responsibility"></div>
+                        <div class="col-xs-6"><h5>Description: </h5><textarea id="description" name="description"
+                                                                              placeholder="Description"
+                                                                              style="width: 492px"></textarea></div>
+                    </div>
+                    <br>
+                    <button id="add_project" class="btn btn-info">Submit</button>
+                    {% csrf_token %}
+                    <button id="add_project_cancel" class="btn btn-danger">Cancel</button>
+                </div>
+            </div>
+            <hr>
+            <div id="project_div">
+            </div>
+        </div>
+
+        <div class="col-sm-4 col-lg-6">
+            <h3>Language
+                <button class="btn btn-info" id="language_btn">Add Language</button>
+            </h3>
+
+            <div id="add_language_div" style="display:none">
+                <div id="add_language_form">
+                    <div class="row">
+                        <div class="col-xs-6"><h5>Language: </h5><input id="language" name="language_name"
+                                                                        placeholder="Language"></div>
+                        <div class="col-xs-6"><h5>Proficiency: </h5><input id="language_proficiency"
+                                                                           name="proficiency"
+                                                                           placeholder="Proficiency"></div>
+                    </div>
+                    <br>
+                    <button id="add_language" class="btn btn-info">Submit</button>
+                    {% csrf_token %}
+                    <button id="add_language_cancel" class="btn btn-danger" type="reset">Cancel</button>
+
+                </div>
+            </div>
+            <hr>
+            <div id="language_div">
+            </div>
+        </div>
+    </div>
+    <hr>
+    <footer class="text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>Copyright © Team 42. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% endblock %}
+</div>
